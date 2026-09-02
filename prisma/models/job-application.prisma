@@ -1,0 +1,12 @@
+model JobApplication {
+  id        String   @id @default(uuid())
+  company   String
+  position  String
+  status    String
+  appliedAt DateTime @map("applied_at")
+  url       String?
+  notes     String?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("job_applications")
+}
