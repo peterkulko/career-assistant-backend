@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { JobApplicationsService } from './job-applications.service.js';
-import { CreateJobApplicationDto } from './dto/job-applications.dto.js';
+import { CreateJobApplicationDto, UpdateJobApplicationDto } from './dto/job-applications.dto.js';
 
 @Controller('job-applications')
 export class JobApplicationsController {
@@ -17,8 +17,17 @@ export class JobApplicationsController {
   }
 
   @Post()
-  @UsePipes(new ValidationPipe())
   create(@Body() jobApplicationData: CreateJobApplicationDto) {
     return this.jobApplicationsService.create(jobApplicationData);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() jobApplicationData: UpdateJobApplicationDto) {
+    return this.jobApplicationsService.update(id, jobApplicationData);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.jobApplicationsService.delete(id);
   }
 }
